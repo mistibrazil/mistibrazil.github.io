@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/label.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <script src="js/leaflet.js"></script>
+        <script src="js/OSMBuildings-Leaflet.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/label.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="data/json_BrazilianStates0.js"></script>
+        <script src="data/json_UndergradPlacement1.js"></script>
+        <script src="data/json_GradPlacement2.js"></script>
+        <script src="data/json_SummerPlacement3.js"></script>
+        <script src="data/json_IAPPlacement4.js"></script>
+        <script src="data/json_SpringPlacement5.js"></script>
+        <script src="data/json_FallPlacement6.js"></script>
+        <script src="data/json_GlobalTeachingLabs7.js"></script>
+        <script src="data/json_NonGTL8.js"></script>
+        <script src="data/json_SchoolOfEngStudents9.js"></script>
+        <script src="data/json_SchoolOfHumanitiesStdnts10.js"></script>
+        <script src="data/json_SloanStudents11.js"></script>
+        <script src="data/json_SchoolOfArchPlanStdnts12.js"></script>
+        <script src="data/json_SchoolofSciStudents13.js"></script>
+        <script src="data/json_AllPartnerships14.js"></script>
+        <script>
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-32.164788051,-75.4310536617],[3.75337922944,-24.834463971]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var feature_group = new L.featureGroup([]);
+        var bounds_group = new L.featureGroup([]);
+        var raster_group = new L.LayerGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>,&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        var initialOrder = new Array();
+        var layerOrder = new Array();
+        function stackLayers() {
+            for (index = 0; index < initialOrder.length; index++) {
+                map.removeLayer(initialOrder[index]);
+                map.addLayer(initialOrder[index]);
+            }
+        }
+        function restackLayers() {
+            for (index = 0; index < layerOrder.length; index++) {
+                layerOrder[index].bringToFront();
+            }
+        }
+        layerControl = L.control.layers({},{},{collapsed:false});
+
+        function doStyleBrazilianStates0(feature) {
+            return {
+                weight: 3.44,
+                color: '#a3a5b5',
+                fillColor: '#000000',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                opacity: 1.0,
+                fillOpacity: 0.0
+            };
+        }
+        var json_BrazilianStates0JSON = new L.geoJson(json_BrazilianStates0, {
+            style: doStyleBrazilianStates0
+        });
+        layerOrder[layerOrder.length] = json_BrazilianStates0JSON;
+        bounds_group.addLayer(json_BrazilianStates0JSON);
+        initialOrder[initialOrder.length] = json_BrazilianStates0JSON;
+        feature_group.addLayer(json_BrazilianStates0JSON);
+        function pop_UndergradPlacement1(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleUndergradPlacement1() {
+            return {
+                radius: 5.0,
+                fillColor: '#ff0000',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerUndergradPlacement1(feature, latlng) {
+            return L.circleMarker(latlng, doStyleUndergradPlacement1())
+        }
+        var json_UndergradPlacement1JSON = new L.geoJson(json_UndergradPlacement1, {
+            onEachFeature: pop_UndergradPlacement1, 
+            pointToLayer: doPointToLayerUndergradPlacement1
+            });
+        layerOrder[layerOrder.length] = json_UndergradPlacement1JSON;
+
+        bounds_group.addLayer(json_UndergradPlacement1JSON);
+        initialOrder[initialOrder.length] = json_UndergradPlacement1JSON;
+        feature_group.addLayer(json_UndergradPlacement1JSON);
+        function pop_GradPlacement2(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleGradPlacement2() {
+            return {
+                radius: 5.0,
+                fillColor: '#915112',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerGradPlacement2(feature, latlng) {
+            return L.circleMarker(latlng, doStyleGradPlacement2())
+        }
+        var json_GradPlacement2JSON = new L.geoJson(json_GradPlacement2, {
+            onEachFeature: pop_GradPlacement2, 
+            pointToLayer: doPointToLayerGradPlacement2
+            });
+        layerOrder[layerOrder.length] = json_GradPlacement2JSON;
+
+        bounds_group.addLayer(json_GradPlacement2JSON);
+        initialOrder[initialOrder.length] = json_GradPlacement2JSON;
+        feature_group.addLayer(json_GradPlacement2JSON);
+        function pop_SummerPlacement3(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSummerPlacement3() {
+            return {
+                radius: 5.0,
+                fillColor: '#a6cee3',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSummerPlacement3(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSummerPlacement3())
+        }
+        var json_SummerPlacement3JSON = new L.geoJson(json_SummerPlacement3, {
+            onEachFeature: pop_SummerPlacement3, 
+            pointToLayer: doPointToLayerSummerPlacement3
+            });
+        layerOrder[layerOrder.length] = json_SummerPlacement3JSON;
+
+        bounds_group.addLayer(json_SummerPlacement3JSON);
+        initialOrder[initialOrder.length] = json_SummerPlacement3JSON;
+        feature_group.addLayer(json_SummerPlacement3JSON);
+        function pop_IAPPlacement4(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleIAPPlacement4() {
+            return {
+                radius: 5.0,
+                fillColor: '#ffffff',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerIAPPlacement4(feature, latlng) {
+            return L.circleMarker(latlng, doStyleIAPPlacement4())
+        }
+        var json_IAPPlacement4JSON = new L.geoJson(json_IAPPlacement4, {
+            onEachFeature: pop_IAPPlacement4, 
+            pointToLayer: doPointToLayerIAPPlacement4
+            });
+        layerOrder[layerOrder.length] = json_IAPPlacement4JSON;
+
+        bounds_group.addLayer(json_IAPPlacement4JSON);
+        initialOrder[initialOrder.length] = json_IAPPlacement4JSON;
+        feature_group.addLayer(json_IAPPlacement4JSON);
+        function pop_SpringPlacement5(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSpringPlacement5() {
+            return {
+                radius: 5.0,
+                fillColor: '#509533',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSpringPlacement5(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSpringPlacement5())
+        }
+        var json_SpringPlacement5JSON = new L.geoJson(json_SpringPlacement5, {
+            onEachFeature: pop_SpringPlacement5, 
+            pointToLayer: doPointToLayerSpringPlacement5
+            });
+        layerOrder[layerOrder.length] = json_SpringPlacement5JSON;
+
+        bounds_group.addLayer(json_SpringPlacement5JSON);
+        initialOrder[initialOrder.length] = json_SpringPlacement5JSON;
+        feature_group.addLayer(json_SpringPlacement5JSON);
+        function pop_FallPlacement6(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleFallPlacement6() {
+            return {
+                radius: 5.0,
+                fillColor: '#fdbf6f',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerFallPlacement6(feature, latlng) {
+            return L.circleMarker(latlng, doStyleFallPlacement6())
+        }
+        var json_FallPlacement6JSON = new L.geoJson(json_FallPlacement6, {
+            onEachFeature: pop_FallPlacement6, 
+            pointToLayer: doPointToLayerFallPlacement6
+            });
+        layerOrder[layerOrder.length] = json_FallPlacement6JSON;
+
+        bounds_group.addLayer(json_FallPlacement6JSON);
+        initialOrder[initialOrder.length] = json_FallPlacement6JSON;
+        feature_group.addLayer(json_FallPlacement6JSON);
+        function pop_GlobalTeachingLabs7(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleGlobalTeachingLabs7() {
+            return {
+                radius: 5.0,
+                fillColor: '#ffff00',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerGlobalTeachingLabs7(feature, latlng) {
+            return L.circleMarker(latlng, doStyleGlobalTeachingLabs7())
+        }
+        var json_GlobalTeachingLabs7JSON = new L.geoJson(json_GlobalTeachingLabs7, {
+            onEachFeature: pop_GlobalTeachingLabs7, 
+            pointToLayer: doPointToLayerGlobalTeachingLabs7
+            });
+        layerOrder[layerOrder.length] = json_GlobalTeachingLabs7JSON;
+
+        bounds_group.addLayer(json_GlobalTeachingLabs7JSON);
+        initialOrder[initialOrder.length] = json_GlobalTeachingLabs7JSON;
+        feature_group.addLayer(json_GlobalTeachingLabs7JSON);
+        function pop_NonGTL8(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleNonGTL8() {
+            return {
+                radius: 5.0,
+                fillColor: '#b2df8a',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerNonGTL8(feature, latlng) {
+            return L.circleMarker(latlng, doStyleNonGTL8())
+        }
+        var json_NonGTL8JSON = new L.geoJson(json_NonGTL8, {
+            onEachFeature: pop_NonGTL8, 
+            pointToLayer: doPointToLayerNonGTL8
+            });
+        layerOrder[layerOrder.length] = json_NonGTL8JSON;
+
+        bounds_group.addLayer(json_NonGTL8JSON);
+        initialOrder[initialOrder.length] = json_NonGTL8JSON;
+        feature_group.addLayer(json_NonGTL8JSON);
+        function pop_SchoolOfEngStudents9(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSchoolOfEngStudents9() {
+            return {
+                radius: 5.0,
+                fillColor: '#1b08f0',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSchoolOfEngStudents9(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSchoolOfEngStudents9())
+        }
+        var json_SchoolOfEngStudents9JSON = new L.geoJson(json_SchoolOfEngStudents9, {
+            onEachFeature: pop_SchoolOfEngStudents9, 
+            pointToLayer: doPointToLayerSchoolOfEngStudents9
+            });
+        layerOrder[layerOrder.length] = json_SchoolOfEngStudents9JSON;
+
+        bounds_group.addLayer(json_SchoolOfEngStudents9JSON);
+        initialOrder[initialOrder.length] = json_SchoolOfEngStudents9JSON;
+        feature_group.addLayer(json_SchoolOfEngStudents9JSON);
+        function pop_SchoolOfHumanitiesStdnts10(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSchoolOfHumanitiesStdnts10() {
+            return {
+                radius: 5.0,
+                fillColor: '#eea5d9',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSchoolOfHumanitiesStdnts10(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSchoolOfHumanitiesStdnts10())
+        }
+        var json_SchoolOfHumanitiesStdnts10JSON = new L.geoJson(json_SchoolOfHumanitiesStdnts10, {
+            onEachFeature: pop_SchoolOfHumanitiesStdnts10, 
+            pointToLayer: doPointToLayerSchoolOfHumanitiesStdnts10
+            });
+        layerOrder[layerOrder.length] = json_SchoolOfHumanitiesStdnts10JSON;
+
+        bounds_group.addLayer(json_SchoolOfHumanitiesStdnts10JSON);
+        initialOrder[initialOrder.length] = json_SchoolOfHumanitiesStdnts10JSON;
+        feature_group.addLayer(json_SchoolOfHumanitiesStdnts10JSON);
+        function pop_SloanStudents11(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSloanStudents11() {
+            return {
+                radius: 5.0,
+                fillColor: '#a3a5b5',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSloanStudents11(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSloanStudents11())
+        }
+        var json_SloanStudents11JSON = new L.geoJson(json_SloanStudents11, {
+            onEachFeature: pop_SloanStudents11, 
+            pointToLayer: doPointToLayerSloanStudents11
+            });
+        layerOrder[layerOrder.length] = json_SloanStudents11JSON;
+
+        bounds_group.addLayer(json_SloanStudents11JSON);
+        initialOrder[initialOrder.length] = json_SloanStudents11JSON;
+        feature_group.addLayer(json_SloanStudents11JSON);
+        function pop_SchoolOfArchPlanStdnts12(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSchoolOfArchPlanStdnts12() {
+            return {
+                radius: 5.0,
+                fillColor: '#8107cc',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSchoolOfArchPlanStdnts12(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSchoolOfArchPlanStdnts12())
+        }
+        var json_SchoolOfArchPlanStdnts12JSON = new L.geoJson(json_SchoolOfArchPlanStdnts12, {
+            onEachFeature: pop_SchoolOfArchPlanStdnts12, 
+            pointToLayer: doPointToLayerSchoolOfArchPlanStdnts12
+            });
+        layerOrder[layerOrder.length] = json_SchoolOfArchPlanStdnts12JSON;
+
+        bounds_group.addLayer(json_SchoolOfArchPlanStdnts12JSON);
+        initialOrder[initialOrder.length] = json_SchoolOfArchPlanStdnts12JSON;
+        feature_group.addLayer(json_SchoolOfArchPlanStdnts12JSON);
+        function pop_SchoolofSciStudents13(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleSchoolofSciStudents13() {
+            return {
+                radius: 5.0,
+                fillColor: '#ff7f00',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerSchoolofSciStudents13(feature, latlng) {
+            return L.circleMarker(latlng, doStyleSchoolofSciStudents13())
+        }
+        var json_SchoolofSciStudents13JSON = new L.geoJson(json_SchoolofSciStudents13, {
+            onEachFeature: pop_SchoolofSciStudents13, 
+            pointToLayer: doPointToLayerSchoolofSciStudents13
+            });
+        layerOrder[layerOrder.length] = json_SchoolofSciStudents13JSON;
+
+        bounds_group.addLayer(json_SchoolofSciStudents13JSON);
+        initialOrder[initialOrder.length] = json_SchoolofSciStudents13JSON;
+        feature_group.addLayer(json_SchoolofSciStudents13JSON);
+        function pop_AllPartnerships14(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">Lat</th><td>' + (feature.properties['Lat'] !== null ? Autolinker.link(String(feature.properties['Lat'])) : '') + '</td></tr><tr><th scope="row">Long</th><td>' + (feature.properties['Long'] !== null ? Autolinker.link(String(feature.properties['Long'])) : '') + '</td></tr><tr><th scope="row">Host</th><td>' + (feature.properties['Host'] !== null ? Autolinker.link(String(feature.properties['Host'])) : '') + '</td></tr><tr><th scope="row">Number of Students Who Have Worked Here</th><td>' + (feature.properties['Number of Students Who Have Worked Here'] !== null ? Autolinker.link(String(feature.properties['Number of Students Who Have Worked Here'])) : '') + '</td></tr><tr><th scope="row">Program</th><td>' + (feature.properties['Program'] !== null ? Autolinker.link(String(feature.properties['Program'])) : '') + '</td></tr><tr><th scope="row">Years</th><td>' + (feature.properties['Years'] !== null ? Autolinker.link(String(feature.properties['Years'])) : '') + '</td></tr><tr><th scope="row">Departure Terms</th><td>' + (feature.properties['Departure Terms'] !== null ? Autolinker.link(String(feature.properties['Departure Terms'])) : '') + '</td></tr><tr><th scope="row">Majors of Students</th><td>' + (feature.properties['Majors of Students'] !== null ? Autolinker.link(String(feature.properties['Majors of Students'])) : '') + '</td></tr><tr><th scope="row">School of Students</th><td>' + (feature.properties['School of Students'] !== null ? Autolinker.link(String(feature.properties['School of Students'])) : '') + '</td></tr><tr><th scope="row">Class Year of Students</th><td>' + (feature.properties['Class Year of Students'] !== null ? Autolinker.link(String(feature.properties['Class Year of Students'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleAllPartnerships14() {
+            return {
+                radius: 7.0,
+                fillColor: '#000000',
+                color: '#000000',
+                weight: 0.0,
+                opacity: 1.0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                fillOpacity: 1.0
+            }
+        }
+        function doPointToLayerAllPartnerships14(feature, latlng) {
+            return L.circleMarker(latlng, doStyleAllPartnerships14())
+        }
+        var json_AllPartnerships14JSON = new L.geoJson(json_AllPartnerships14, {
+            onEachFeature: pop_AllPartnerships14, 
+            pointToLayer: doPointToLayerAllPartnerships14
+            });
+        layerOrder[layerOrder.length] = json_AllPartnerships14JSON;
+
+        bounds_group.addLayer(json_AllPartnerships14JSON);
+        initialOrder[initialOrder.length] = json_AllPartnerships14JSON;
+        feature_group.addLayer(json_AllPartnerships14JSON);
+        raster_group.addTo(map);
+        feature_group.addTo(map);
+        var baseMaps = {'Thunderforest Cycle': basemap0};
+        L.control.layers(baseMaps,{'<img src="legend/AllPartnerships14.png" /> All Partnerships': json_AllPartnerships14JSON,'<img src="legend/SchoolofSciStudents13.png" /> SchoolofSciStudents': json_SchoolofSciStudents13JSON,'<img src="legend/SchoolOfArchPlanStdnts12.png" /> SchoolOfArch/PlanStdnts': json_SchoolOfArchPlanStdnts12JSON,'<img src="legend/SloanStudents11.png" /> Sloan Students': json_SloanStudents11JSON,'<img src="legend/SchoolOfHumanitiesStdnts10.png" /> SchoolOfHumanitiesStdnts': json_SchoolOfHumanitiesStdnts10JSON,'<img src="legend/SchoolOfEngStudents9.png" /> SchoolOfEngStudents': json_SchoolOfEngStudents9JSON,'<img src="legend/NonGTL8.png" /> Non-GTL ': json_NonGTL8JSON,'<img src="legend/GlobalTeachingLabs7.png" /> Global Teaching Labs': json_GlobalTeachingLabs7JSON,'<img src="legend/FallPlacement6.png" /> Fall Placement': json_FallPlacement6JSON,'<img src="legend/SpringPlacement5.png" /> Spring Placement': json_SpringPlacement5JSON,'<img src="legend/IAPPlacement4.png" /> IAP Placement': json_IAPPlacement4JSON,'<img src="legend/SummerPlacement3.png" /> Summer Placement': json_SummerPlacement3JSON,'<img src="legend/GradPlacement2.png" /> Grad Placement': json_GradPlacement2JSON,'<img src="legend/UndergradPlacement1.png" /> Undergrad Placement': json_UndergradPlacement1JSON,'<img src="legend/BrazilianStates0.png" /> Brazilian States': json_BrazilianStates0JSON,},{collapsed:false}).addTo(map);
+        L.control.scale({options: {position: 'bottomleft', maxWidth: 100, metric: true, imperial: false, updateWhenIdle: false}}).addTo(map);
+        stackLayers();
+        map.on('overlayadd', restackLayers);
+        </script>
+    </body>
+</html>
